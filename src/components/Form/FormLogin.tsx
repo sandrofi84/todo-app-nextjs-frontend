@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
+import React, { useCallback, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
 import { Box, Button, createStyles, makeStyles, TextField, Theme } from '@material-ui/core';
-import Axios from 'axios';
+import Axios, { CancelTokenSource } from 'axios';
 import Form from './Form';
 import { useRouter } from 'next/dist/client/router';
-import {User} from '../../types/User';
+import {User, UserWithToken} from '../../types/User';
 import DispatchContext from '../../context/DispatchContext';
 import FormOauthLoginButton from './FormOauthLoginButton';
 
@@ -31,7 +31,7 @@ const FormLogin = () => {
     );
 
     const getUser = async (token: string): Promise<User> => {
-        let user;
+        let user: User;
 
         const headers = {
             "Authorization": `Bearer ${token}`
@@ -47,7 +47,43 @@ const FormLogin = () => {
         }
 
         return user;
-    }
+    };
+
+    const getUserAndRedirect = useCallback(async (accessToken: string): Promise<void> => {
+
+        const user = await getUser(accessToken);
+
+        if (user) {
+            const userWithToken: UserWithToken = {...user, token: accessToken};
+            appDispatch({type: "login", user: userWithToken});
+            router.push("/");
+        }
+        // else display authentication failed
+    }, [appDispatch, router]);
+
+    const oauthAuthenticateAndLogin = useCallback(async (provider: string | string[], authCode: string | string[], cleanUpRef: CancelTokenSource) => {
+        if (Array.isArray(provider)) provider = provider[0];
+        if (Array.isArray(authCode)) authCode = authCode[0];
+
+        try {
+            const response = await Axios
+                .get(
+                    `${process.env.API_URL}/auth/thirdparty/${provider}/callback?code=${authCode}`, 
+                    { cancelToken: cleanUpRef.token }
+                    );
+            
+            const { status, data } = response;
+
+            if (status === 200 && data?.token) {
+                const {token} = response.data;
+                
+                getUserAndRedirect(token);
+            }
+
+        } catch(err) {
+            console.log(err);
+        }
+    }, [getUserAndRedirect]);
 
     const handleClick = async (link: string): Promise<void> => {
         
@@ -58,7 +94,7 @@ const FormLogin = () => {
         } catch(err) {
             console.log(err);
         }
-    }
+    };
 
     const handleChange = (e: SyntheticEvent): void => {
         const field = (e.target as HTMLInputElement).name;
@@ -67,7 +103,7 @@ const FormLogin = () => {
         setFormInput({
             [field]: newValue,
         })
-    }
+    };
 
     const handleSubmit = async (e: SyntheticEvent): Promise<void> => {
         e.preventDefault();
@@ -77,60 +113,27 @@ const FormLogin = () => {
 
             if (response.status === 200 && response.data?.token) {
                 const {token} = response.data;
-                localStorage.setItem("todosToken", token);
 
-                const user: User = await getUser(token);
-
-                if (user) {
-                    localStorage.setItem("todosUser", JSON.stringify(user));
-                    appDispatch({type: "setUser"})
-                    router.push("/");
-                }
+                getUserAndRedirect(token);
             }
         } catch(err) {
             console.log(err.message);
         }
-    }
+    };
 
     useEffect(() => {
         const { code, provider } = router.query;
-        const myRequest = Axios.CancelToken.source();
-        const getToken = async () => {
-            try {
-                const response = await Axios
-                .get(
-                    `${process.env.API_URL}/auth/thirdparty/${provider}/callback?code=${code}`, 
-                    { cancelToken: myRequest.token }
-                    );
-                
-                const { status, data } = response;
-
-                if (status === 200 && data?.token) {
-                    const {token} = response.data;
-                    localStorage.setItem("todosToken", token);
-    
-                    const user: User = await getUser(token);
-    
-                    if (user) {
-                        localStorage.setItem("todosUser", JSON.stringify(user));
-                        appDispatch({type: "setUser"})
-                        router.push("/");
-                    }
-                }
-
-            } catch(err) {
-                console.log(err);
-            }
-        };
-
+        let myRequest: CancelTokenSource;
+        
         if (code) {
-            getToken();
+            myRequest = Axios.CancelToken.source();
+            oauthAuthenticateAndLogin(provider, code, myRequest);
         }
 
         return () => {
-            myRequest.cancel();
+            if (myRequest) myRequest.cancel();
         }
-    }, [router.query])
+    }, [router.query, router, oauthAuthenticateAndLogin]);
 
     return (
         <>

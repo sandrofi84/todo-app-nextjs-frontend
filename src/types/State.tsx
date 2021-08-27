@@ -1,5 +1,6 @@
-import { User } from "./User";
+import { UserWithToken } from "./User";
 
 export interface State {
-    user: User,
+    user: UserWithToken,
+    isLoggedIn: boolean
 }

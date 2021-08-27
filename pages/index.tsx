@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import TitleHero from '../src/components/TitleHero';
-import StateContext from '../src/context/stateContext';
+import StateContext from '../src/context/StateContext';
 
 export default function Home() {
   const { user } = useContext(StateContext);
