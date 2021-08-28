@@ -3,7 +3,7 @@ import React from 'react'
 
 const TitleHero = ({children}) => {
     return (
-        <Typography align="center" color="primary">
+        <Typography variant="h2" align="center" color="primary">
             {children}
         </Typography>
     )

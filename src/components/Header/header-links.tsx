@@ -27,25 +27,9 @@ export const links: HeaderLink[] = [
         subLinks: []
     },
     {
-        label: "products",
-        href: "/products",
-        subLinks: [
-            {
-                label: "cars",
-                href: "/products/cars",
-                subLinks: []
-            },
-            {
-                label: "saddles",
-                href: "/products/saddles",
-                subLinks: []
-            },
-            {
-                label: "horses",
-                href: "/products/horses",
-                subLinks: []
-            }
-        ]
+        label: "my todos",
+        href: "/mytodos",
+        subLinks: []
     },
     {
         label: "about",

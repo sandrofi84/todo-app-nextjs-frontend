@@ -39,6 +39,14 @@ const theme = createTheme({
     },
   },
   overrides: {
+    MuiTypography: {
+      colorTextPrimary: {
+        color: colors.primary.main,
+      },
+      colorTextSecondary: {
+        color: colors.primary.contrastText,
+      }
+    },
     MuiButton: {
       textPrimary: {
         color: colors.primary.contrastText,
