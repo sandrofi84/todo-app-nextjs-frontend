@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NavItem from './NavItem';
 import { createStyles, makeStyles, Theme, Box } from '@material-ui/core';
 import {links, makeProps, HeaderLinkProps, HeaderLink} from '../Header/header-links';
+import StateContext from '../../context/StateContext';
+import NavDashboardLoggedOut from './NavDashboardLoggedOut';
+import NavDashboardLoggedIn from './NavDashboardLoggedIn';
 
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
@@ -16,6 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Navbar = () => {
     const classes = useStyles();
+    const {isLoggedIn} = useContext(StateContext);
+
     return (
         <nav className={classes.root}>
             <Box display="flex" flexDirection="row">
@@ -43,10 +48,9 @@ const Navbar = () => {
                     )
                 }
             </Box>
-            <Box display="flex" flexDirection="row">
-                <NavItem href="/login" label="login"/>
-                <NavItem href="/signup"label="sign up"/>
-            </Box>
+            {
+                isLoggedIn ? <NavDashboardLoggedIn/> : <NavDashboardLoggedOut />
+            }
         </nav>
     )
 }
