@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <TitleHero>
-        Welcome to TODOs{user.id && `, ${user.name}`}! 🥳
+        Welcome{user.name ? `, ${user.name.split(' ')[0]}` : ' to TODOs'}! 🥳
       </TitleHero>
       <Button color="secondary">
         <Link href="/contact">
