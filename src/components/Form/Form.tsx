@@ -1,15 +1,18 @@
 import React, { SyntheticEvent } from 'react';
 import { Box, Button, createStyles, makeStyles, TextField, Theme } from '@material-ui/core';
+import FormOauthLoginButton from './FormOauthLoginButton';
+import { OauthProvider } from './form-oauth-providers';
 
 export interface FormProps {
   className?: string,
   handleSubmit: (e: SyntheticEvent) => Promise<void> | void,
   handleChange: (e: SyntheticEvent) => void,
   formInput: object,
-  label: string
+  label: string,
+  oauthProviders?: OauthProvider[]
 }
 
-const Form = ({className, handleSubmit, handleChange, formInput, label}: FormProps) => {
+const Form = ({className, handleSubmit, handleChange, formInput, label, oauthProviders}: FormProps) => {
   let inputKeys: string[] = [];
 
   for (let key in formInput) {
@@ -24,6 +27,12 @@ const Form = ({className, handleSubmit, handleChange, formInput, label}: FormPro
           )
         }
         <Button type="submit" variant="contained" color="primary">{label}</Button>
+        {
+          oauthProviders &&
+          oauthProviders.map(
+              provider => (<FormOauthLoginButton key={provider.name} provider={provider.name} authLink={provider.authLink} />)
+          )
+        }
       </Box>
   )
 }

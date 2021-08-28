@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
-import { Box, Button, createStyles, makeStyles, TextField, Theme } from '@material-ui/core';
+import { CircularProgress, createStyles, makeStyles, Theme } from '@material-ui/core';
 import Axios, { CancelTokenSource } from 'axios';
 import Form from './Form';
 import { useRouter } from 'next/dist/client/router';
 import {User, UserWithToken} from '../../types/User';
 import DispatchContext from '../../context/DispatchContext';
-import FormOauthLoginButton from './FormOauthLoginButton';
+import { oauthProviders } from './form-oauth-providers';
 
 const useStyles = makeStyles((theme: Theme) => 
   createStyles({
@@ -21,6 +21,7 @@ const FormLogin = () => {
     const classes = useStyles();
     const appDispatch = useContext(DispatchContext);
     const router = useRouter();
+    const { code, provider } = router.query;
 
     const [formInput, setFormInput] = useReducer(
         (state, newState) => ({...state, ...newState}), 
@@ -85,17 +86,6 @@ const FormLogin = () => {
         }
     }, [getUserAndRedirect]);
 
-    const handleClick = async (link: string): Promise<void> => {
-        
-        try {
-            const response = await Axios.get(link);
-            console.log(response);
-
-        } catch(err) {
-            console.log(err);
-        }
-    };
-
     const handleChange = (e: SyntheticEvent): void => {
         const field = (e.target as HTMLInputElement).name;
         const newValue = (e.target as HTMLInputElement).value;
@@ -122,7 +112,6 @@ const FormLogin = () => {
     };
 
     useEffect(() => {
-        const { code, provider } = router.query;
         let myRequest: CancelTokenSource;
         
         if (code) {
@@ -133,13 +122,18 @@ const FormLogin = () => {
         return () => {
             if (myRequest) myRequest.cancel();
         }
-    }, [router.query, router, oauthAuthenticateAndLogin]);
+    }, [code, provider, oauthAuthenticateAndLogin]);
+
+    if (code) return <CircularProgress />
 
     return (
-        <>
-            <Form className={classes.form} formInput={formInput} handleChange={handleChange} handleSubmit={handleSubmit} label="LOGIN" />
-            <FormOauthLoginButton provider="facebook" handleClick={handleClick} />
-        </>
+    
+        <Form className={classes.form} 
+            formInput={formInput} 
+            handleChange={handleChange} 
+            handleSubmit={handleSubmit} 
+            oauthProviders={oauthProviders} 
+            label="LOGIN" />
     )
 }
 
