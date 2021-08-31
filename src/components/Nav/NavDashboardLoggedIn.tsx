@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
-import { Box, Button, createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { Box, Button, IconButton, createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
 import DispatchContext from '../../context/DispatchContext';
 import StateContext from '../../context/StateContext';
+import { AlertSeverity } from '../../types/Alert';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        greeting: {
-            marginRight: "20px"
-        },
         button: {
             height: "100%",
             color: theme.palette.primary.contrastText
@@ -20,14 +19,24 @@ const NavDashboardLoggedIn = () => {
     const { user } = useContext(StateContext);
     const appDispatch = useContext(DispatchContext);
 
-    const handleClick = () => {
-        appDispatch({type: "logout"})
+    const handleLogout = () => {
+        appDispatch({type: "showAlert", alert: {severity: AlertSeverity.INFO, message: "You logged out! 🤷‍♂️"}});
+        appDispatch({type: "logout"});
     }
 
     return (
         <Box display="flex" flexDirection="row" alignItems="center">
-            <Typography className={classes.greeting} color="textSecondary">Welcome, {user.name}</Typography>
-            <Button className={classes.button} onClick={handleClick}>LOGOUT</Button>
+            <Typography color="textSecondary">{user.name}</Typography>
+            <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => ""}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            <Button className={classes.button} onClick={handleLogout}>LOGOUT</Button>
         </Box>
     )
 }

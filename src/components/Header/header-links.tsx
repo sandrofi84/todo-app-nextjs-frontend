@@ -1,6 +1,7 @@
 export interface HeaderLink {
     label: string,
     href: string,
+    onlyLoggedIn?: boolean,
     subLinks: HeaderLink[]
 }
 
@@ -22,13 +23,9 @@ export function makeProps(link: HeaderLink): HeaderLinkProps {
 
 export const links: HeaderLink[] = [
     {
-        label: "home",
-        href: "/",
-        subLinks: []
-    },
-    {
-        label: "my todos",
-        href: "/mytodos",
+        label: "todos",
+        href: "/todos",
+        onlyLoggedIn: true,
         subLinks: []
     },
     {

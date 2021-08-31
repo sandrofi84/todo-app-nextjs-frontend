@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Navbar = () => {
     const classes = useStyles();
-    const {isLoggedIn} = useContext(StateContext);
+    const {userIsLoggedIn} = useContext(StateContext);
 
     return (
         <nav className={classes.root}>
@@ -28,7 +28,8 @@ const Navbar = () => {
                     links.map(
                         (link: HeaderLink) => {
                             const props: HeaderLinkProps = makeProps(link);
-
+                            if (link.onlyLoggedIn && !userIsLoggedIn) return null;
+                            
                             if (!props.isDropdown) {
                                 return <NavItem key={props.label} {...props} />
                             } else {
@@ -49,7 +50,7 @@ const Navbar = () => {
                 }
             </Box>
             {
-                isLoggedIn ? <NavDashboardLoggedIn/> : <NavDashboardLoggedOut />
+                userIsLoggedIn ? <NavDashboardLoggedIn/> : <NavDashboardLoggedOut />
             }
         </nav>
     )

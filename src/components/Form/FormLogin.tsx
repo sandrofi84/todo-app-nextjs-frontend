@@ -6,6 +6,7 @@ import { useRouter } from 'next/dist/client/router';
 import {User, UserWithToken} from '../../types/User';
 import DispatchContext from '../../context/DispatchContext';
 import { oauthProviders } from './form-oauth-providers';
+import { AlertSeverity } from '../../types/Alert';
 
 const useStyles = makeStyles((theme: Theme) => 
   createStyles({
@@ -57,6 +58,7 @@ const FormLogin = () => {
         if (user) {
             const userWithToken: UserWithToken = {...user, token: accessToken};
             appDispatch({type: "login", user: userWithToken});
+            appDispatch({type: "showAlert", alert: {severity: AlertSeverity.SUCCESS, message: "You logged in! 🥳"}});
             router.push("/");
         }
         // else display authentication failed

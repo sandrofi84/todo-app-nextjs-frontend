@@ -9,7 +9,7 @@ export interface NavItemProps {
     isDropdown?: boolean,
     href?: string,
     label: string,
-    darkText?: boolean
+    darkText?: boolean,
 }
 
 const useStyles = makeStyles((theme: Theme) => 

@@ -10,6 +10,15 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "inline-block",
             height: "100%",
             color: theme.palette.primary.contrastText,
+            "&:hover": {
+                "&::after": {
+                    content: '"Home"',
+                    position: 'absolute',
+                    transform: "translate(-50px,50px)",
+                    color: "#000",
+                    backgroundColor: "#FFFF00"
+                },
+            },
         },
         logo: {
             height: "100%",
@@ -26,7 +35,7 @@ const HeaderLogo = () => {
             <Button>
                 <Link href="/">
                     <a>
-                        <Image className={classes.logo} src={myLogo} height={50} alt="" />
+                        <Image className={classes.logo} src={myLogo} height={50} alt="home" />
                     </a>
                 </Link>
             </Button>

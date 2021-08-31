@@ -12,11 +12,6 @@ export default function Home() {
       <TitleHero>
         Welcome{user.name ? `, ${user.name.split(' ')[0]}` : ' to TODOs'}! 🥳
       </TitleHero>
-      <Button color="secondary">
-        <Link href="/contact">
-            <a>Go to Contact Page</a>
-        </Link>
-      </Button>
     </>
   )
 }
