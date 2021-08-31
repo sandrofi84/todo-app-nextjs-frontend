@@ -72,11 +72,12 @@ function MyApp(props: AppProps) {
     try {
         const response = await Axios
             .get(
-                `${process.env.API_URL}/todo-lists?filter[where][userId]=${user.id}&[include][relation]=todos`,
+                `${process.env.API_URL}/todo-lists?filter={"where":{"userId":"${user.id}"},"include":["todos"]}`,
                 { headers, cancelToken: cleanUpRef.token }
                 );
 
         const { status, data } = response;
+        console.log(data)
 
         if (status === 200) appDispatch({type: "setTodoLists", todoLists: data});;
 
@@ -93,7 +94,7 @@ function MyApp(props: AppProps) {
 
   useEffect(() => {
     let myRequest: CancelTokenSource;
-    
+
     if (appState.userIsLoggedIn) {
       localStorage.setItem("todosUser", JSON.stringify(appState.user));
       myRequest = Axios.CancelToken.source();

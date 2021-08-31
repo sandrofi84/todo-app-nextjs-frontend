@@ -1,3 +1,5 @@
+import { Attributes } from "react";
+
 export interface TodoProps {
     id: string,
     title: string,
@@ -7,6 +9,11 @@ export interface TodoProps {
 }
 
 export interface TodoListProps {
+    key: any,
+    todoList: TodoList,
+}
+
+export interface TodoList {
     id: string,
     userId: string,
     title: string,

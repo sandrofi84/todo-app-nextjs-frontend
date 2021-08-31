@@ -15,9 +15,7 @@ const TodosPool = () => {
 
                 todoLists.map(
                     todoList => (
-                        <div key={todoList.id}>
-                            <TodoList todoList={todoList} />
-                        </div>
+                            <TodoList key={todoList.id} todoList={todoList} />
                     )
                 )
 
