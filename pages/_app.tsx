@@ -33,7 +33,8 @@ function MyApp(props: AppProps) {
     userIsLoggedIn: false,
     todoLists: [],
     alert: defaultAlert,
-    alertIsVisible: false
+    alertIsVisible: false,
+    requestCounter: 0
   };
 
   const myReducer = (draft, action) => {
@@ -56,6 +57,9 @@ function MyApp(props: AppProps) {
       case "setTodoLists":
         draft.todoLists = action.todoLists;
         return draft;
+      case "updateTodoLists":
+        draft.requestCounter++;
+        return draft;
       default:
         break;   
     }
@@ -77,7 +81,6 @@ function MyApp(props: AppProps) {
                 );
 
         const { status, data } = response;
-        console.log(data)
 
         if (status === 200) appDispatch({type: "setTodoLists", todoLists: data});;
 
@@ -107,6 +110,19 @@ function MyApp(props: AppProps) {
       if (myRequest) myRequest.cancel();
     }
   }, [appState.userIsLoggedIn, appState.user]);
+
+  useEffect(() => {
+    let myRequest: CancelTokenSource;
+
+    if (appState.requestCounter) {
+      myRequest = Axios.CancelToken.source();
+      getTodoLists(appState.user, myRequest);
+    }
+
+    return () => {
+      if (myRequest) myRequest.cancel();
+    }
+  }, [appState.requestCounter]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.

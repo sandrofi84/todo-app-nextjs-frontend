@@ -1,48 +1,53 @@
-import { Button, Card, CardContent, CardActions, Typography, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { Box, Button, Card, CardContent, CardActions, Typography, makeStyles, createStyles, Theme, colors, Accordion, AccordionSummary, AccordionDetails, ListItemIcon, Badge } from '@material-ui/core'
+import { ExpandMore, List } from '@material-ui/icons';
 import React, { JSXElementConstructor } from 'react';
-import { TodoListProps } from '../../types/Todo';
+import { makeTodoProps, TodoListProps } from '../../types/Todo';
+import Todo from './Todo';
 
 const useStyles = makeStyles<Theme, TodoListProps>((theme: Theme) => 
     createStyles({
     root: {
-      minWidth: 275,
-      backgroundColor: (props) => props.todoList.color ? props.todoList.color : theme.palette.secondary.light,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
+      backgroundColor: (props) => props.todoList.color 
+      ? colors[props.todoList.color]["A200"] 
+      : theme.palette.secondary.light,
+      "&:hover": {
+        backgroundColor: (props) => props.todoList.color 
+        ? colors[props.todoList.color]["A700"] 
+        : theme.palette.secondary.light,
+      }
     },
     title: {
-      fontSize: 14,
       color: "#000"
-    },
-    pos: {
-      marginBottom: 12,
     },
   })
 );
 
 const TodoList: JSXElementConstructor<TodoListProps> = (props: TodoListProps) => {
     const {todoList} = props;
+    const incompleteTodos = todoList.todos ? todoList.todos.filter(todo => !todo.isComplete) : [];
     const classes = useStyles(props);
-    const bull = <span className={classes.bullet}>•</span>;
-
-
 
     return (
         <Card className={classes.root}>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Box display="flex" alignItems="center" justifyContent="space-between">
+                <Typography variant="h5" className={classes.title} color="textSecondary" gutterBottom>
                 {todoList.title}
                 </Typography>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Number of Todos: {todoList.todos.length}
-                </Typography>
+                <Badge badgeContent={incompleteTodos.length} color="secondary">
+                  <List />
+                </Badge>
+              </Box>
             </CardContent>
-            <CardActions>
-                <Button size="small">Learn More</Button>
-            </CardActions>
+                {
+                  todoList.todos &&
+                  todoList.todos.map(
+                    todo => {
+                      const props = makeTodoProps(todo, todoList.color);
+                      return <Todo key={props.id} {...props} />
+                    }
+                  )
+                }
         </Card>
     )
 }

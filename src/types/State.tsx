@@ -7,5 +7,6 @@ export interface State {
     userIsLoggedIn: boolean,
     todoLists: TodoListProps[],
     alert: Alert,
-    alertIsVisible: boolean
+    alertIsVisible: boolean,
+    requestCounter: number
 }
