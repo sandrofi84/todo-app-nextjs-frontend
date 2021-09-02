@@ -1,8 +1,9 @@
-import { Box, Button, Card, CardContent, CardActions, Typography, makeStyles, createStyles, Theme, colors, Accordion, AccordionSummary, AccordionDetails, ListItemIcon, Badge } from '@material-ui/core'
-import { ExpandMore, List } from '@material-ui/icons';
+import { Box, Button, Typography, makeStyles, createStyles, Theme, colors, Accordion, AccordionSummary, AccordionDetails, ListItemIcon, Badge } from '@material-ui/core'
+import { List, AddCircle, DeleteForever } from '@material-ui/icons';
 import React, { JSXElementConstructor } from 'react';
 import { makeTodoProps, TodoListProps } from '../../types/Todo';
 import Todo from './Todo';
+import TodoListControls from './TodoListControls';
 
 const useStyles = makeStyles<Theme, TodoListProps>((theme: Theme) => 
     createStyles({
@@ -27,7 +28,15 @@ const useStyles = makeStyles<Theme, TodoListProps>((theme: Theme) =>
     list: {
       display: "flex",
       flexDirection: "column"
-    }
+    },
+    button: {
+      width: "48%",
+      margin: "1%",
+      backgroundColor: colors.grey[300],
+      "&:hover": {
+        backgroundColor: colors.grey[100]
+      }
+    },
   })
 );
 
@@ -49,6 +58,8 @@ const TodoList: JSXElementConstructor<TodoListProps> = (props: TodoListProps) =>
           </Typography>
         </AccordionSummary>
         <AccordionDetails className={classes.list}>
+          <TodoListControls todoListId={todoList.id} />
+          
         {
           todoList.todos &&
           todoList.todos.map(
