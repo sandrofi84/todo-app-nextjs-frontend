@@ -19,6 +19,15 @@ const useStyles = makeStyles<Theme, TodoListProps>((theme: Theme) =>
     title: {
       color: "#000"
     },
+    head: {
+      "& > .MuiAccordionSummary-expandIcon": {
+        transform: "none"
+      }
+    },
+    list: {
+      display: "flex",
+      flexDirection: "column"
+    }
   })
 );
 
@@ -28,27 +37,29 @@ const TodoList: JSXElementConstructor<TodoListProps> = (props: TodoListProps) =>
     const classes = useStyles(props);
 
     return (
-        <Card className={classes.root}>
-            <CardContent>
-              <Box display="flex" alignItems="center" justifyContent="space-between">
-                <Typography variant="h5" className={classes.title} color="textSecondary" gutterBottom>
-                {todoList.title}
-                </Typography>
-                <Badge badgeContent={incompleteTodos.length} color="secondary">
-                  <List />
-                </Badge>
-              </Box>
-            </CardContent>
-                {
-                  todoList.todos &&
-                  todoList.todos.map(
-                    todo => {
-                      const props = makeTodoProps(todo, todoList.color);
-                      return <Todo key={props.id} {...props} />
-                    }
-                  )
-                }
-        </Card>
+      <Accordion className={classes.root}>
+        <AccordionSummary
+        className={classes.head}
+        expandIcon={<Badge badgeContent={incompleteTodos.length} color="secondary"><List /></Badge>}
+        aria-controls=""
+        id={todoList.id}
+        >
+          <Typography variant="h5" className={classes.title} color="textSecondary" gutterBottom>
+            {todoList.title}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails className={classes.list}>
+        {
+          todoList.todos &&
+          todoList.todos.map(
+            todo => {
+              const props = makeTodoProps(todo, todoList.color);
+              return <Todo key={props.id} {...props} />
+            }
+          )
+        }
+        </AccordionDetails>
+      </Accordion>
     )
 }
 

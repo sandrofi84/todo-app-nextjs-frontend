@@ -76,13 +76,12 @@ function MyApp(props: AppProps) {
     try {
         const response = await Axios
             .get(
-                `${process.env.API_URL}/todo-lists?filter={"where":{"userId":"${user.id}"},"include":["todos"]}`,
+                `${process.env.API_URL}/todo-lists?filter[include][]=todos&filter[where][userId]=${user.id}`,
                 { headers, cancelToken: cleanUpRef.token }
                 );
-
         const { status, data } = response;
 
-        if (status === 200) appDispatch({type: "setTodoLists", todoLists: data});;
+        if (status === 200) appDispatch({type: "setTodoLists", todoLists: data.reverse()});;
 
     } catch(err) {
         console.log(err);
