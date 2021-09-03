@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
-import { Box, Button, createStyles, FormControl, FormHelperText, InputLabel, makeStyles, MenuItem, Select, TextField, Theme } from '@material-ui/core';
+import { Box, Button, createStyles, FormControl, FormHelperText, InputLabel, makeStyles, MenuItem, Paper, Select, TextField, Theme } from '@material-ui/core';
 import Axios from 'axios';
 import Form from './Form';
 import { TodoListColor, todoListColorArray } from '../../types/Todo';
 import StateContext from '../../context/StateContext';
 import DispatchContext from '../../context/DispatchContext';
+import { AlertSeverity } from '../../types/Alert';
 
 const useStyles = makeStyles((theme: Theme) => 
   createStyles({
+    root: {
+        padding: "5px",
+        marginBottom: "8px"
+    },
     form: {
       "& > div": {
         paddingBottom: "10px"
@@ -16,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FormAddTodo = ({todoListId}) => {
+const FormAddTodo = ({todoListId, setIsOpen}) => {
     const classes = useStyles();
     const { user: {token} } = useContext(StateContext);
     const appDispatch = useContext(DispatchContext);
@@ -47,18 +52,24 @@ const FormAddTodo = ({todoListId}) => {
         
         try {
             const response = await Axios.post(`${process.env.API_URL}/todos`, {title: formInput.title, desc: formInput.description, isComplete: false, todoListId}, {headers});
-            if (response.status === 200) appDispatch({type: "updateTodoLists"});
+            if (response.status === 200) {
+                appDispatch({type: "updateTodoLists"});
+                appDispatch({type: "showAlert", alert: {severity: AlertSeverity.SUCCESS, message: "New Todo Created! 👏"}});
+                setIsOpen(false);
+            };
         } catch(err) {
             console.log(err);
         }
     }
 
     return (
-        <Form className={classes.form} 
-            formInput={formInput} 
-            handleChange={handleChange} 
-            handleSubmit={handleSubmit}
-            label="CREATE TODO" />
+        <Paper className={classes.root}>
+            <Form className={classes.form} 
+                formInput={formInput} 
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit}
+                label="CREATE TODO" />
+        </Paper>
     )
 }
 
