@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const NavDashboardLoggedIn = () => {
     const classes = useStyles();
-    const { user } = useContext(StateContext);
     const appDispatch = useContext(DispatchContext);
 
     const handleLogout = () => {
@@ -24,21 +23,7 @@ const NavDashboardLoggedIn = () => {
         appDispatch({type: "logout"});
     }
 
-    return (
-        <Box display="flex" flexDirection="row" alignItems="center">
-            <Typography color="textSecondary">{user.name}</Typography>
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={() => ""}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            <Button className={classes.button} onClick={handleLogout}>LOGOUT</Button>
-        </Box>
-    )
+    return <Button className={classes.button} onClick={handleLogout}>LOGOUT</Button>
 }
 
 export default NavDashboardLoggedIn

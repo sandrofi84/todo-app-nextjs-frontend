@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         button: {
             height: "100%",
-            color: theme.palette.primary.contrastText
         },
         buttonDarkText: {
             color: theme.palette.secondary.dark

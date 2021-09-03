@@ -1,56 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import NavItem from './NavItem';
-import { createStyles, makeStyles, Theme, Box } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Box, IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import {links, makeProps, HeaderLinkProps, HeaderLink} from '../Header/header-links';
 import StateContext from '../../context/StateContext';
 import NavDashboardLoggedOut from './NavDashboardLoggedOut';
 import NavDashboardLoggedIn from './NavDashboardLoggedIn';
+import LoggedInUser from './LoggedInUser';
+import NavLinks from './NavLinks';
+import NavDashboard from './NavDashboard';
+import NavMenu from './NavMenu';
 
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
         root: {
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             width: "100%",
-            height: "100%"
+            height: "100%",
         },
-    })
+        menuIcon: {
+            color: theme.palette.primary.contrastText
+            }
+        })
 );
 
 const Navbar = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+    const [isOpen, setIsOpen] = useState(false);
     const classes = useStyles();
-    const {userIsLoggedIn} = useContext(StateContext);
+    const {userIsLoggedIn, user} = useContext(StateContext);
+
+    const handleClick = () => {
+        setIsOpen(prev => !prev)
+    };
 
     return (
         <nav className={classes.root}>
-            <Box display="flex" flexDirection="row">
-                {
-                    links.map(
-                        (link: HeaderLink) => {
-                            const props: HeaderLinkProps = makeProps(link);
-                            if (link.onlyLoggedIn && !userIsLoggedIn) return null;
-                            
-                            if (!props.isDropdown) {
-                                return <NavItem key={props.label} {...props} />
-                            } else {
-                                return (
-                                <NavItem key={props.label} {...props}>
-                                    {link.subLinks.map(
-                                        (sublink: HeaderLink) => {
-                                            const props: HeaderLinkProps = makeProps(sublink);
-
-                                            return <NavItem key={props.label} {...props} darkText={true}/>
-                                        }
-                                    )}
-                                </NavItem>
-                                )
-                            }
-                        }
-                    )
-                }
-            </Box>
+            <NavMenu isMobile={isMobile} isOpen={isOpen} />
+            <LoggedInUser isLoggedIn={userIsLoggedIn} name={user.name} />
             {
-                userIsLoggedIn ? <NavDashboardLoggedIn/> : <NavDashboardLoggedOut />
+                isMobile &&
+                <IconButton edge="end" onClick={handleClick}>
+                    <MenuIcon className={classes.menuIcon} fontSize="large" />
+                </IconButton>
             }
         </nav>
     )

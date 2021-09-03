@@ -4,7 +4,7 @@ import {Button} from '@material-ui/core';
 
 const NavLink = ({href, children, className}) => {
     return (
-        <Button className={className}>
+        <Button className={className} color="inherit">
             <Link href={href}>
                 <a href={href}>  
                     {children}

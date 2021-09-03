@@ -55,9 +55,6 @@ const theme = createTheme({
       }
     },
     MuiButton: {
-      textPrimary: {
-        color: colors.primary.contrastText,
-      },
       textSecondary: {
         color: colors.secondary.main,
       },
