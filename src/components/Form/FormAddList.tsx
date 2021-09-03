@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { TodoListColor, todoListColorArray } from '../../types/Todo';
 import StateContext from '../../context/StateContext';
 import DispatchContext from '../../context/DispatchContext';
+import { AlertSeverity } from '../../types/Alert';
 
 const useStyles = makeStyles((theme: Theme) => 
   createStyles({
@@ -51,10 +52,14 @@ const FormAddList = () => {
         }
         
         try {
-            const response = await Axios.post(`${process.env.API_URL}/todo-lists/`, {headers});
-            if (response.status === 200) appDispatch({type: "updateTodoLists"});
+            const response = await Axios.post(`${process.env.API_URL}/todo-lists/`, {...formInput}, {headers});
+            if (response.status === 200) {
+                appDispatch({type: "updateTodoLists"});
+                appDispatch({type: "showAlert", alert: {severity: AlertSeverity.SUCCESS, message: "New List Created! 🥳"}});
+            }
         } catch(err) {
             console.log(err);
+            appDispatch({type: "showAlert", alert: {severity: AlertSeverity.ERROR, message: "Something went wrong! Please, try again... 😤"}});
         }
     }
 

@@ -50,7 +50,7 @@ const TodoListControls = ({todoListId}) => {
             const response = await Axios.delete(`${process.env.API_URL}/todo-lists/${todoListId}`, {headers});
             if (response.status === 204) {
                 appDispatch({type: "updateTodoLists"});
-                appDispatch({type: "showAlert", alert: {severity: AlertSeverity.SUCCESS, message: "New List Created! 🥳"}});
+                appDispatch({type: "showAlert", alert: {severity: AlertSeverity.SUCCESS, message: "List Deleted! 🤓"}});
             }
         } catch(err) {
             console.log(err);

@@ -85,8 +85,10 @@ const FormLogin = () => {
 
         } catch(err) {
             console.log(err);
+            router.push('login');
+            appDispatch({type: "showAlert", alert: {severity: AlertSeverity.ERROR, message: "Something went wrong! Please, try again... 😤"}});
         }
-    }, [getUserAndRedirect]);
+    }, [getUserAndRedirect, appDispatch, router]);
 
     const handleChange = (e: SyntheticEvent): void => {
         const field = (e.target as HTMLInputElement).name;
