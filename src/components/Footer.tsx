@@ -4,8 +4,6 @@ import React from 'react'
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
         root: {
-            position: "fixed",
-            bottom: "0px",
             width: "100%",
             height: "60px",
             backgroundColor: theme.palette.primary.dark,

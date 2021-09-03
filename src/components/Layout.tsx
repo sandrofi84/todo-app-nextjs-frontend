@@ -7,7 +7,8 @@ import FlashAlerts from './FlashAlerts';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         main: {
-            paddingTop: "120px"
+            padding: "120px 0 40px 0",
+            minHeight: "max(calc(100vh - 60px), 600px)",
         }
     })
 );
