@@ -54,6 +54,7 @@ const TodoListControls = ({todoListId}) => {
             }
         } catch(err) {
             console.log(err);
+            appDispatch({type: "showAlert", alert: {severity: AlertSeverity.ERROR, message: "Something went wrong! Please, try again... 😤"}});
         }
     };
 
