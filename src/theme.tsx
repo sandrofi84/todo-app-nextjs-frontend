@@ -1,5 +1,6 @@
 import { createTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
+import { CallMadeSharp } from '@material-ui/icons';
 
 const colors = {
   primary: {
@@ -18,6 +19,9 @@ const colors = {
 
 // Create a theme instance.
 const theme = createTheme({
+  typography: {
+    fontFamily: "Tahoma"
+  },
   palette: {
     primary: {
       light: colors.primary.light,
@@ -40,6 +44,9 @@ const theme = createTheme({
   },
   overrides: {
     MuiTypography: {
+      h2: {
+        fontSize: "clamp(2rem, 4vw, 4rem)"
+      },
       colorTextPrimary: {
         color: colors.primary.main,
       },
