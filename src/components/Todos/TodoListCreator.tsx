@@ -11,7 +11,7 @@ import {
     Typography 
 } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
-import FormTodoList from '../Form/FormTodoList';
+import FormTodoList from '../Form/FormAddList';
 
 interface Props {
     isOpen: boolean

@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
-import { Box, Button, createStyles, FormControl, FormHelperText, InputLabel, makeStyles, MenuItem, Select, TextField, Theme } from '@material-ui/core';
+import React, { useReducer, SyntheticEvent, useContext } from 'react';
+import { Box, Button, createStyles, FormControl, makeStyles, MenuItem, Select, TextField, Theme } from '@material-ui/core';
 import Axios from 'axios';
-import Form from './Form';
-import { useRouter } from 'next/dist/client/router';
 import { TodoListColor, todoListColorArray } from '../../types/Todo';
 import StateContext from '../../context/StateContext';
 import DispatchContext from '../../context/DispatchContext';
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FormTodoList = () => {
+const FormAddList = () => {
     const classes = useStyles();
     const { user } = useContext(StateContext);
     const appDispatch = useContext(DispatchContext);
@@ -40,8 +38,6 @@ const FormTodoList = () => {
         const field = e.target.name;
         const newValue = e.target.value;
 
-        console.log(formInput);
-
         setFormInput({
             [field]: newValue,
         })
@@ -55,7 +51,7 @@ const FormTodoList = () => {
         }
         
         try {
-            const response = await Axios.post(`${process.env.API_URL}/todo-lists/`, {...formInput}, {headers});
+            const response = await Axios.post(`${process.env.API_URL}/todo-lists/`, {headers});
             if (response.status === 200) appDispatch({type: "updateTodoLists"});
         } catch(err) {
             console.log(err);
@@ -88,4 +84,4 @@ const FormTodoList = () => {
     )
 }
 
-export default FormTodoList
+export default FormAddList
