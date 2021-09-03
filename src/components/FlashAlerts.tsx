@@ -24,7 +24,11 @@ const FlashAlerts = () => {
     };
 
     return (
-        <Snackbar className={classes.root} open={alertIsVisible} autoHideDuration={3500} onClose={handleClose}>
+        <Snackbar 
+        className={classes.root} 
+        open={alertIsVisible} 
+        autoHideDuration={3500} 
+        onClose={handleClose}>
             <Alert elevation={6} variant="filled" severity={alert.severity}>
                 {alert.message}
             </Alert>

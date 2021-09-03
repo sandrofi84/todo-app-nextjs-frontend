@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core"
 export const oauthProviders: OauthProvider[] = [
     {
         name: "facebook",
-        authLink: `https://www.facebook.com/v11.0/dialog/oauth?response_type=code&redirect_uri=${process.env.OAUTH_REDIRECT_URI}/facebook&scope=email&client_id=618026915852607` 
+        authLink: `https://www.facebook.com/v11.0/dialog/oauth?response_type=code&redirect_uri=${process.env.OAUTH_REDIRECT_URI}/facebook&scope=email&client_id=${process.env.OAUTH_CLIENT_ID}` 
     }
 ]
 

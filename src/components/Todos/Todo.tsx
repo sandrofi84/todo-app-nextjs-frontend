@@ -1,7 +1,25 @@
-import { Accordion, AccordionDetails, AccordionSummary, alpha, Checkbox, colors, createStyles, FormControlLabel, makeStyles, Theme, Typography } from '@material-ui/core'
-import { ExpandMore } from '@material-ui/icons'
+import { 
+    Accordion, 
+    AccordionDetails, 
+    AccordionSummary, 
+    alpha, 
+    Checkbox, 
+    colors, 
+    createStyles, 
+    FormControlLabel, 
+    makeStyles, 
+    Theme, 
+    Typography 
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 import { CancelTokenSource } from 'axios';
-import React, { JSXElementConstructor, SyntheticEvent, useContext, useEffect, useState } from 'react'
+import React, { 
+    JSXElementConstructor, 
+    SyntheticEvent, 
+    useContext, 
+    useEffect, 
+    useState 
+} from 'react';
 import usePrevious from '../../hooks/usePrevious';
 import { TodoProps } from '../../types/Todo'
 import { UserWithToken } from '../../types/User';

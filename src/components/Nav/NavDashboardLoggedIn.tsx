@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
-import { Box, Button, IconButton, createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { Button, createStyles, makeStyles, Theme} from '@material-ui/core';
 import DispatchContext from '../../context/DispatchContext';
-import StateContext from '../../context/StateContext';
 import { AlertSeverity } from '../../types/Alert';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         button: {
             height: "100%",
-            color: theme.palette.primary.contrastText
         }
     })
 );
@@ -23,7 +20,7 @@ const NavDashboardLoggedIn = () => {
         appDispatch({type: "logout"});
     }
 
-    return <Button className={classes.button} onClick={handleLogout}>LOGOUT</Button>
+    return <Button className={classes.button} onClick={handleLogout} color="inherit">LOGOUT</Button>
 }
 
 export default NavDashboardLoggedIn

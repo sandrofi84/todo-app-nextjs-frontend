@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
-import { Box, Button, createStyles, FormControl, FormHelperText, InputLabel, makeStyles, MenuItem, Paper, Select, TextField, Theme } from '@material-ui/core';
+import React, { useReducer, SyntheticEvent, useContext } from 'react';
+import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 import Axios from 'axios';
 import Form from './Form';
-import { TodoListColor, todoListColorArray } from '../../types/Todo';
 import StateContext from '../../context/StateContext';
 import DispatchContext from '../../context/DispatchContext';
 import { AlertSeverity } from '../../types/Alert';

@@ -1,8 +1,8 @@
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import React, { useContext } from 'react'
-import StateContext from '../../context/StateContext'
-import NavDashboard from './NavDashboard'
-import NavLinks from './NavLinks'
+import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
+import React, { useContext } from 'react';
+import StateContext from '../../context/StateContext';
+import NavDashboard from './NavDashboard';
+import NavLinks from './NavLinks';
 
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
@@ -23,8 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: "center",
             alignItems: "center",
             color: theme.palette.primary.dark,
-            backgroundColor: theme.palette.primary.light
-        },
+            backgroundColor: theme.palette.primary.light,
+            borderRadius: "4px",
+            boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
+        }
     })
 );
 

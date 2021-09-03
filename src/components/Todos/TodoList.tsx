@@ -1,5 +1,15 @@
-import { Box, Button, Typography, makeStyles, createStyles, Theme, colors, Accordion, AccordionSummary, AccordionDetails, ListItemIcon, Badge } from '@material-ui/core'
-import { List, AddCircle, DeleteForever } from '@material-ui/icons';
+import { 
+  Typography, 
+  makeStyles, 
+  createStyles, 
+  Theme, 
+  colors, 
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails, 
+  Badge 
+} from '@material-ui/core';
+import { List } from '@material-ui/icons';
 import React, { JSXElementConstructor } from 'react';
 import { makeTodoProps, TodoListProps } from '../../types/Todo';
 import Todo from './Todo';

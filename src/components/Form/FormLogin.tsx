@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useReducer, SyntheticEvent, useContext } from 'react';
+import React, { 
+    useCallback, 
+    useEffect, 
+    useReducer, 
+    SyntheticEvent, 
+    useContext 
+} from 'react';
 import { CircularProgress, createStyles, makeStyles, Theme } from '@material-ui/core';
 import Axios, { CancelTokenSource } from 'axios';
 import Form from './Form';

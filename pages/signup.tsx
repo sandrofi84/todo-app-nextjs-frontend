@@ -1,34 +1,25 @@
 import Link from 'next/link';
 import FormSignup from '../src/components/Form/FormSignup';
-import { Box, Button, createStyles, makeStyles, TextField, Theme } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
+import TitleHero from '../src/components/TitleHero';
 
 export default function Signup() {
-  //const classes = useStyles();
   
   return (
     <>
-      <div>
+      <TitleHero>
         Sign up Page! 🥶
-      </div>
+      </TitleHero>
       <Box margin="auto" width="max-content">
           <FormSignup/>
       </Box>
       <Box width="max-content" margin="auto">
-        <Link passHref={true} href="/login">
-          <Button color="secondary">
+        <Button color="secondary">
+          <Link href="/login">
             <a>OR LOGIN</a>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </Box>
     </>
   )
 }
-
-// const useStyles = makeStyles((theme: Theme) => 
-//   createStyles({
-//     form: {
-//       "& > div": {
-//         paddingBottom: "10px"
-//       }
-//     }
-//   }))

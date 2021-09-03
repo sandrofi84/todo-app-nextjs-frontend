@@ -1,6 +1,6 @@
-import React from 'react'
-import NavDashboardLoggedIn from './NavDashboardLoggedIn'
-import NavDashboardLoggedOut from './NavDashboardLoggedOut'
+import React from 'react';
+import NavDashboardLoggedIn from './NavDashboardLoggedIn';
+import NavDashboardLoggedOut from './NavDashboardLoggedOut';
 
 const NavDashboard = ({isLoggedIn}) => {
 

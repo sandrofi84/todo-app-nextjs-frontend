@@ -12,7 +12,6 @@ import { UserWithToken } from '../src/types/User';
 import { State } from '../src/types/State';
 import { AlertSeverity } from '../src/types/Alert';
 import Axios, { CancelTokenSource } from 'axios';
-import { TodoListProps } from '../src/types/Todo';
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;

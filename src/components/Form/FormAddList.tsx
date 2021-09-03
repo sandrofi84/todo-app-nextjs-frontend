@@ -1,5 +1,15 @@
 import React, { useReducer, SyntheticEvent, useContext } from 'react';
-import { Box, Button, createStyles, FormControl, makeStyles, MenuItem, Select, TextField, Theme } from '@material-ui/core';
+import { 
+    Box, 
+    Button, 
+    createStyles, 
+    FormControl, 
+    makeStyles, 
+    MenuItem, 
+    Select, 
+    TextField, 
+    Theme 
+} from '@material-ui/core';
 import Axios from 'axios';
 import { TodoListColor, todoListColorArray } from '../../types/Todo';
 import StateContext from '../../context/StateContext';

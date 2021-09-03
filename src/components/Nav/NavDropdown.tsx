@@ -1,6 +1,16 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import { Box, Grow, Button, makeStyles, Paper, Popper, MenuList, Theme, createStyles } from '@material-ui/core';
+import { 
+  Box, 
+  Grow, 
+  Button, 
+  makeStyles, 
+  Paper, 
+  Popper, 
+  MenuList, 
+  Theme, 
+  createStyles 
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => 
   createStyles({
@@ -25,14 +35,6 @@ export default function NavDropdown({children, label, href, className}) {
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-
-  // const handleClose = (event) => {
-  //   if (anchorRef.current && anchorRef.current.contains(event.target)) {
-  //     return;
-  //   }
-
-  //   setOpen(false);
-  // };
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {

@@ -7,8 +7,7 @@ import {
     colors, 
     createStyles, 
     makeStyles, 
-    Theme, 
-    Typography 
+    Theme
 } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
 import FormTodoList from '../Form/FormAddList';

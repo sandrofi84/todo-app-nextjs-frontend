@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {createStyles, makeStyles, Theme, Button} from '@material-ui/core'
+import {createStyles, makeStyles, Theme, Button} from '@material-ui/core';
 import myLogo from '../../public/my-logo.svg';
 
 const useStyles = makeStyles((theme: Theme) =>

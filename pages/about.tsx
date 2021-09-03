@@ -1,13 +1,11 @@
-import Link from 'next/link';
-import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
+import TitleHero from '../src/components/TitleHero';
 
 export default function About() {
   return (
     <>
-      <Typography variant="h4">
+      <TitleHero>
         About Page! 🤓
-      </Typography>
+      </TitleHero>
     </>
   )
 }

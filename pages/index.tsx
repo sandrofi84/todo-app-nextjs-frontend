@@ -1,6 +1,4 @@
 import { useContext } from 'react';
-import Link from 'next/link';
-import Button from '@material-ui/core/Button';
 import TitleHero from '../src/components/TitleHero';
 import StateContext from '../src/context/StateContext';
 

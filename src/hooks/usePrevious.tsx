@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const usePrevious = (value: unknown) => {
     const previousValue = useRef(null);

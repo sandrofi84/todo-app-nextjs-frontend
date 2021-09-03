@@ -1,11 +1,16 @@
-import React, { SyntheticEvent, useContext, useState } from 'react';
-import { Box, Button, ButtonGroup, makeStyles, createStyles, Theme, colors } from '@material-ui/core'
+import React, { useContext, useState } from 'react';
+import { 
+    Button, 
+    ButtonGroup, 
+    makeStyles, 
+    createStyles, 
+    Theme, 
+    colors 
+} from '@material-ui/core';
 import { AddCircle, DeleteForever } from '@material-ui/icons';
 import DispatchContext from '../../context/DispatchContext';
 import Axios from 'axios';
 import StateContext from '../../context/StateContext';
-import TodoListCreator from './TodoListCreator';
-import FormTodoList from '../Form/FormAddList';
 import FormAddTodo from '../Form/FormAddTodo';
 import { AlertSeverity } from '../../types/Alert';
 

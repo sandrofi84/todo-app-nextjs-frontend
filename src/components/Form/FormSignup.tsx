@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useReducer, SyntheticEvent } from 'react';
-import { Box, Button, createStyles, makeStyles, TextField, Theme } from '@material-ui/core';
+import React, { useReducer, SyntheticEvent } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import Axios from 'axios';
 import Form from './Form';
 import { useRouter } from 'next/dist/client/router';
@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const FormSignup = () => {
-    const classes = useStyles();
 
+    const classes = useStyles();
     const router = useRouter();
 
     const [formInput, setFormInput] = useReducer(

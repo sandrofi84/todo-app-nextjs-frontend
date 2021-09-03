@@ -1,4 +1,4 @@
-import { Box, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import React, { useContext } from 'react';
 import StateContext from '../../context/StateContext';
 import TodoList from './TodoList';

@@ -1,5 +1,3 @@
-import { Attributes } from "react";
-
 export interface Todo {
     id: string,
     title: string,
