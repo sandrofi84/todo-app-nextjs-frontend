@@ -14,7 +14,6 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 import { CancelTokenSource } from 'axios';
 import React, { 
-    JSXElementConstructor, 
     SyntheticEvent, 
     useContext, 
     useEffect, 
@@ -39,12 +38,14 @@ const useStyles = makeStyles<Theme, Partial<TodoProps>>((theme: Theme) =>
   })
 );
 
-const Todo: JSXElementConstructor<TodoProps> = ({id, title, desc, isComplete, todoListId, color}) => {
+const Todo = (props: TodoProps) => {
+
+    const {id, title, desc, isComplete, color} = props;
     const { user } = useContext(StateContext);
     const appDispatch = useContext(DispatchContext);
-    const [todoIsComplete, setTodoIsComplete] = useState(isComplete);
+    const [todoIsComplete, setTodoIsComplete] = useState<boolean>(isComplete);
     const classes = useStyles({isComplete: todoIsComplete, color});
-    const previousValue = usePrevious(todoIsComplete);
+    const previousValue = usePrevious<boolean>(todoIsComplete);
 
     const handleClick = (e: SyntheticEvent) => {
         e.stopPropagation();

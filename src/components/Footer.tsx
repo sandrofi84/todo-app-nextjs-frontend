@@ -14,11 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Footer = () => {
     const classes = useStyles();
-    return (
-        <footer className={classes.root}>
-            This is Footer
-        </footer>
-    )
+    return <footer className={classes.root}></footer>
 }
 
 export default Footer

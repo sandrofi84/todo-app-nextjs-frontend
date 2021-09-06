@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const TitleHero = ({children}) => {
+const TitleHero = ({children}: {children: ReactNode}) => {
     return (
         <Typography variant="h2" align="center" color="primary">
             {children}

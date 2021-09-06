@@ -27,11 +27,6 @@ export const makeTodoProps = (todo: Todo, color: TodoListColor): Partial<TodoPro
     }
 }
 
-export interface TodoListProps {
-    key?: any,
-    todoList: TodoList,
-}
-
 export interface TodoList {
     id: string,
     userId: string,
@@ -39,6 +34,12 @@ export interface TodoList {
     color: TodoListColor,
     todos: Todo[]
 }
+
+export interface TodoListProps {
+    key?: any,
+    todoList: TodoList,
+}
+
 
 export enum TodoListColor {
     YELLOW = "yellow",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core';
 import Footer from './Footer';
 import Header from './Header/Header';

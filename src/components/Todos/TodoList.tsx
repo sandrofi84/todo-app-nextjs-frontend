@@ -10,7 +10,7 @@ import {
   Badge 
 } from '@material-ui/core';
 import { List } from '@material-ui/icons';
-import React, { JSXElementConstructor } from 'react';
+import React from 'react';
 import { makeTodoProps, TodoListProps } from '../../types/Todo';
 import Todo from './Todo';
 import TodoListControls from './TodoListControls';
@@ -50,7 +50,7 @@ const useStyles = makeStyles<Theme, TodoListProps>((theme: Theme) =>
   })
 );
 
-const TodoList: JSXElementConstructor<TodoListProps> = (props: TodoListProps) => {
+const TodoList = (props: TodoListProps) => {
     const {todoList} = props;
     const incompleteTodos = todoList.todos ? todoList.todos.filter(todo => !todo.isComplete) : [];
     const classes = useStyles(props);

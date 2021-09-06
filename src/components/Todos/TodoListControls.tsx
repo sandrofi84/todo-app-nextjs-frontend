@@ -14,11 +14,11 @@ import StateContext from '../../context/StateContext';
 import FormAddTodo from '../Form/FormAddTodo';
 import { AlertSeverity } from '../../types/Alert';
 
-interface Props {
+interface StyleProps {
     isOpen: boolean
 }
 
-const useStyles = makeStyles<Theme, Props>((theme: Theme) => 
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) => 
     createStyles({
         root: {
             width: "100%",
@@ -38,7 +38,7 @@ const useStyles = makeStyles<Theme, Props>((theme: Theme) =>
     })
 );
 
-const TodoListControls = ({todoListId}) => {
+const TodoListControls = ({todoListId}: {todoListId: string}) => {
 
     const { user: { token } } = useContext(StateContext);
     const appDispatch = useContext(DispatchContext);
