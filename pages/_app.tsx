@@ -1,17 +1,17 @@
-import { useCallback, useEffect } from 'react';
-import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/styles';
-import { AppProps } from 'next/app';
-import Layout from '../src/components/Layout';
-import theme from '../src/theme';
-import '../src/styles/globals.css';
-import StateContext from '../src/context/StateContext';
-import DispatchContext from '../src/context/DispatchContext';
-import {useImmerReducer} from 'use-immer';
-import { UserWithToken } from '../src/types/User';
-import { State } from '../src/types/State';
-import { AlertSeverity } from '../src/types/Alert';
-import Axios, { CancelTokenSource } from 'axios';
+import { useCallback, useEffect } from "react";
+import Head from "next/head";
+import { ThemeProvider } from "@material-ui/styles";
+import { AppProps } from "next/app";
+import Layout from "../src/components/Layout";
+import theme from "../src/theme";
+import "../src/styles/globals.css";
+import StateContext from "../src/context/StateContext";
+import DispatchContext from "../src/context/DispatchContext";
+import { useImmerReducer } from "use-immer";
+import { UserWithToken } from "../src/types/User";
+import { State } from "../src/types/State";
+import { AlertSeverity } from "../src/types/Alert";
+import Axios, { CancelTokenSource } from "axios";
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -19,7 +19,11 @@ function MyApp(props: AppProps) {
   const defaultUser: UserWithToken = {
     token: "",
     id: "",
-    name: ""
+    username: "",
+    displayName: "",
+    profilePicture: "",
+    pictures: [],
+    userId: ""
   };
 
   const defaultAlert = {
@@ -37,7 +41,7 @@ function MyApp(props: AppProps) {
   };
 
   const myReducer = (draft, action) => {
-    switch(action.type) {
+    switch (action.type) {
       case "login":
         draft.user = action.user;
         draft.userIsLoggedIn = true;
@@ -60,37 +64,34 @@ function MyApp(props: AppProps) {
         draft.requestCounter++;
         return draft;
       default:
-        break;   
+        break;
     }
   };
 
   const [appState, appDispatch] = useImmerReducer(myReducer, initialState);
 
-  const getTodoLists = useCallback(async (user: UserWithToken, cleanUpRef: CancelTokenSource): Promise<void> => {
+  const getTodoLists = useCallback(
+    async (user: UserWithToken, cleanUpRef: CancelTokenSource): Promise<void> => {
+      const headers = {
+        Authorization: `Bearer ${user.token}`
+      };
 
-    const headers = {
-        "Authorization": `Bearer ${user.token}`
-    }
-
-    try {
-        const response = await Axios
-            .get(
-                `${process.env.API_URL}/todo-lists?filter[include][]=todos&filter[where][userId]=${user.id}`,
-                { headers, cancelToken: cleanUpRef.token }
-                );
+      try {
+        const response = await Axios.get(`${process.env.API_URL}/todo-lists?filter[include][]=todos&filter[where][userId]=${user.userId}`, { headers, cancelToken: cleanUpRef.token });
         const { status, data } = response;
 
-        if (status === 200) appDispatch({type: "setTodoLists", todoLists: data.reverse()});;
-
-    } catch(err) {
+        if (status === 200) appDispatch({ type: "setTodoLists", todoLists: data.reverse() });
+      } catch (err) {
         console.log(err);
-    }
-    }, [appDispatch]);
+      }
+    },
+    [appDispatch]
+  );
 
   useEffect(() => {
     const savedUser = localStorage.getItem("todosUser");
 
-    if (savedUser) appDispatch({type: "login", user: JSON.parse(savedUser)})
+    if (savedUser) appDispatch({ type: "login", user: JSON.parse(savedUser) });
   }, [appDispatch]);
 
   useEffect(() => {
@@ -106,7 +107,7 @@ function MyApp(props: AppProps) {
 
     return () => {
       if (myRequest) myRequest.cancel();
-    }
+    };
   }, [appState.userIsLoggedIn, appState.user]);
 
   useEffect(() => {
@@ -119,12 +120,12 @@ function MyApp(props: AppProps) {
 
     return () => {
       if (myRequest) myRequest.cancel();
-    }
+    };
   }, [appState.requestCounter]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement!.removeChild(jssStyles);
     }
@@ -146,7 +147,7 @@ function MyApp(props: AppProps) {
         </DispatchContext.Provider>
       </StateContext.Provider>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
