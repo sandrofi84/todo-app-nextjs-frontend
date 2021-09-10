@@ -4,7 +4,7 @@ import red from '@material-ui/core/colors/red';
 const colors = {
   primary: {
     light: "#C8F4F9",
-    main: "#3CACAE",
+    main: "#000",
     dark: "#358687",
     contrastText: "#fff",
   },
@@ -58,9 +58,9 @@ const theme = createTheme({
         color: colors.secondary.main,
       },
       containedPrimary: {
-        backgroundColor: colors.primary.dark,
+        backgroundColor: colors.secondary.main,
         '&:hover': {
-          backgroundColor: colors.primary.main,
+          backgroundColor: colors.secondary.light,
         }
       },
       
