@@ -47,8 +47,9 @@ const FormLogin = () => {
 
         try {
             const response = await Axios.get(`${process.env.API_URL}/whoAmI`, {headers});
-
-            if (response.status === 200) user = response.data;
+            console.log(response);
+            const {status, data} = response;
+            if (status === 200 && data) user = data;
 
         } catch(err) {
             console.log(err.message);

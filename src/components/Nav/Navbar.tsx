@@ -41,7 +41,7 @@ const Navbar = () => {
     return (
         <nav className={classes.root}>
             <NavMenu isMobile={isMobile} isOpen={isOpen} />
-            <NavLoggedInUser isLoggedIn={userIsLoggedIn} name={user.name} />
+            <NavLoggedInUser isLoggedIn={userIsLoggedIn} name={user.displayName} picture={user.profilePicture}/>
             {
                 isMobile &&
                 <IconButton edge="end" onClick={handleClick}>
