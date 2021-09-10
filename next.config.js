@@ -1,8 +1,12 @@
 module.exports = {
   env: {
-    API_URL: 'http://localhost:5000',
-    OAUTH_REDIRECT_URI: 'http%3A%2F%2Flocalhost%3A3000%2F/login',
-    OAUTH_CLIENT_ID: 618026915852607
+    API_URL: "http://localhost:5000",
+    OAUTH_REDIRECT_URI: "http://localhost:3000/login",
+    FACEBOOK_CLIENT_ID: 618026915852607,
+    INSTAGRAM_CLIENT_ID: 213997834039934
   },
-  reactStrictMode: false,
-}
+  images: {
+    domains: ["platform-lookaside.fbsbx.com", "scontent-lhr8-2.cdninstagram.com"]
+  },
+  reactStrictMode: false
+};
