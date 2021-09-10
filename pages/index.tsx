@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <TitleHero>
-        Welcome{user.name ? `, ${user.name.split(' ')[0]}` : ' to TODOs'}! 🥳
+        Welcome{user.displayName ? `, ${user.displayName.split(' ')[0]}` : ' to TODOs'}! 🥳
       </TitleHero>
     </>
   )
